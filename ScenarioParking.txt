@@ -1,0 +1,9 @@
+Angažovani ste od strane privatne firme koja upravlja parking prostorima da napravite bazu podataka o parkinzima, korisnicima, vozilima, rezervacijama i kaznama.
+
+Za svaki parking poznati su naziv i lokacija. Svaki parking ima više parking mjesta, dok svako parking mjesto pripada tačno jednom parkingu. Parking mjesta imaju oznake (broj mjesta) i informaciju da li su trenutno zauzeta ili slobodna.
+
+Korisnici sistema imaju ime, prezime i email adresu. Svaki korisnik može imati jedno ili više vozila, dok svako vozilo pripada tačno jednom korisniku. Za svako vozilo poznati su registracija i model.
+
+Korisnici mogu vršiti rezervacije parking mjesta za određeni period. Svaka rezervacija je vezana za tačno jedno parking mjesto i tačno jedno vozilo koje će biti parkirano. Za svaku rezervaciju poznati su datumi početka i kraja rezervacije. Jedno parking mjesto može imati više rezervacija u različitim vremenskim periodima.
+
+Pored toga, korisnici mogu dobiti jednu ili više kazni za nepropisno parkiranje ili prekoračenje vremena rezervacije. Svaka kazna ima svoj opis i iznos, a jedan korisnik može imati više kazni. Takođe, jedna kazna može biti dodijeljena više korisnika (ako je više korisnika zajedno odgovorno, npr. grupno korištenje mjesta).
