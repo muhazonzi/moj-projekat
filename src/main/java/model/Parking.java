@@ -1,13 +1,21 @@
 package model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Parking {
+    @Id
     private Long id;
     private String naziv;
     private String lokacija;
 
+    @OneToMany(mappedBy = "parking")
     private List<ParkingMjesto> parkingMjesta = new ArrayList<>();
 
     public Parking() {

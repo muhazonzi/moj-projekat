@@ -1,14 +1,21 @@
 package model;
 
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Vozilo {
+    @Id
     private Long id;
     private String model;
     private String registracija;
 
-    private Korisnik korisnik; 
+    @ManyToOne
+    @JoinColumn(name = "korisnik_id")
+    private Korisnik korisnik;
+    @OneToMany(mappedBy = "vozilo")
     private List<Rezervacija> rezervacije = new ArrayList<>();
 
 

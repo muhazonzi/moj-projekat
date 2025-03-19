@@ -1,15 +1,24 @@
 package model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Korisnik {
+    @Id
     private Long id;
     private String ime;
     private String prezime;
     private String email;
 
+    @OneToMany(mappedBy = "korisnik")
     private List<Vozilo> vozila = new ArrayList<>();
+    @ManyToMany
     private List<Kazna> kazne = new ArrayList<>();
 
     public Korisnik() {

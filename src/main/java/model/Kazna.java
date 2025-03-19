@@ -1,13 +1,20 @@
 package model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Kazna {
+    @Id
     private Long id;
     private String opis;
     private Double iznos;
 
+    @ManyToMany(mappedBy = "kazne")
     private List<Korisnik> korisnici = new ArrayList<>();
 
     public Kazna() {}

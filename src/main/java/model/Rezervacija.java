@@ -1,13 +1,23 @@
 package model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
 import java.util.Date;
 
+@Entity
 public class Rezervacija {
+    @Id
     private Long id;
     private Date datumOd;
     private Date datumDo;
 
-    private ParkingMjesto parkingMjesto; 
+    @ManyToOne
+    @JoinColumn(name = "parking_mjesto_id")
+    private ParkingMjesto parkingMjesto;
+    @ManyToOne
     private Vozilo vozilo;
 
 
