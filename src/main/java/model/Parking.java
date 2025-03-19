@@ -10,6 +10,9 @@ public class Parking {
 
     private List<ParkingMjesto> parkingMjesta = new ArrayList<>();
 
+    public Parking() {
+    }
+
     public Parking(Long id, String naziv, String lokacija, List<ParkingMjesto> parkingMjesta) {
         this.id = id;
         this.naziv = naziv;

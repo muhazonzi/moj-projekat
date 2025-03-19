@@ -11,6 +11,10 @@ public class ParkingMjesto {
     private Parking parking; 
     private List<Rezervacija> rezervacije = new ArrayList<>();
 
+
+    public ParkingMjesto() {
+    }
+
     public ParkingMjesto(Long id, String oznaka, boolean zauzeto, Parking parking, List<Rezervacija> rezervacije) {
         this.id = id;
         this.oznaka = oznaka;

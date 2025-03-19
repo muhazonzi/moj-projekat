@@ -8,8 +8,11 @@ public class Rezervacija {
     private Date datumDo;
 
     private ParkingMjesto parkingMjesto; 
-    private Vozilo vozilo; 
+    private Vozilo vozilo;
 
+
+    public Rezervacija() {
+    }
 
     public Rezervacija(Long id, Date datumOd, Date datumDo, ParkingMjesto parkingMjesto, Vozilo vozilo) {
         this.id = id;

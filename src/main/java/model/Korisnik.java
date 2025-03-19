@@ -12,6 +12,9 @@ public class Korisnik {
     private List<Vozilo> vozila = new ArrayList<>();
     private List<Kazna> kazne = new ArrayList<>();
 
+    public Korisnik() {
+    }
+
     public Korisnik(Long id, String ime, String prezime, String email, List<Vozilo> vozila, List<Kazna> kazne) {
         this.id = id;
         this.ime = ime;

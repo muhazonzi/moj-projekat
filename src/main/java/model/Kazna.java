@@ -10,6 +10,8 @@ public class Kazna {
 
     private List<Korisnik> korisnici = new ArrayList<>();
 
+    public Kazna() {}
+
     public Kazna(Long id, String opis, Double iznos, List<Korisnik> korisnici) {
         this.id = id;
         this.opis = opis;

@@ -11,6 +11,10 @@ public class Vozilo {
     private Korisnik korisnik; 
     private List<Rezervacija> rezervacije = new ArrayList<>();
 
+
+    public Vozilo() {
+    }
+
     public Vozilo(Long id, String model, String registracija, Korisnik korisnik, List<Rezervacija> rezervacije) {
         this.id = id;
         this.model = model;
