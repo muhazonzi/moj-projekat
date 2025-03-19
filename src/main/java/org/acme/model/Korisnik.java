@@ -1,9 +1,6 @@
 package org.acme.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +9,8 @@ import java.util.Objects;
 @Entity
 public class Korisnik {
     @Id
+    @SequenceGenerator(name = "korisnik_seq", sequenceName = "korisnik_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "korisnik_seq")
     private Long id;
     private String ime;
     private String prezime;

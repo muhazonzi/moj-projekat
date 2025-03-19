@@ -9,6 +9,8 @@ import java.util.Objects;
 @Entity
 public class Vozilo {
     @Id
+    @SequenceGenerator(name = "vozilo_seq", sequenceName = "vozilo_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vozilo_seq")
     private Long id;
     private String model;
     private String registracija;

@@ -9,6 +9,8 @@ import java.util.Objects;
 @Entity
 public class ParkingMjesto {
     @Id
+    @SequenceGenerator(name = "parking_mjesto_seq", sequenceName = "parking_mjesto_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "parking_mjesto_seq")
     private Long id;
     private String oznaka;
     private boolean zauzeto;

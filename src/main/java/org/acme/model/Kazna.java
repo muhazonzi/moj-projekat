@@ -1,8 +1,6 @@
 package org.acme.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +9,8 @@ import java.util.Objects;
 @Entity
 public class Kazna {
     @Id
+    @SequenceGenerator(name = "kazna_seq", sequenceName = "kazna_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "kazna_seq")
     private Long id;
     private String opis;
     private Double iznos;

@@ -1,9 +1,6 @@
 package org.acme.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 import java.util.Date;
 import java.util.Objects;
@@ -11,6 +8,8 @@ import java.util.Objects;
 @Entity
 public class Rezervacija {
     @Id
+    @SequenceGenerator(name = "rezervacija_seq", sequenceName = "rezervacija_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rezervacija_seq")
     private Long id;
     private Date datumOd;
     private Date datumDo;
