@@ -1,12 +1,12 @@
-package model;
+package org.acme.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Parking {
@@ -49,5 +49,17 @@ public class Parking {
                 ", lokacija='" + lokacija + '\'' +
                 ", parkingMjesta=" + parkingMjesta +
                 '}';
-    };
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Parking parking = (Parking) o;
+        return Objects.equals(id, parking.id) && Objects.equals(naziv, parking.naziv) && Objects.equals(lokacija, parking.lokacija) && Objects.equals(parkingMjesta, parking.parkingMjesta);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, naziv, lokacija, parkingMjesta);
+    }
 }

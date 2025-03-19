@@ -1,9 +1,10 @@
-package model;
+package org.acme.model;
 
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Vozilo {
@@ -54,5 +55,17 @@ public class Vozilo {
                 ", korisnik=" + korisnik +
                 ", rezervacije=" + rezervacije +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Vozilo vozilo = (Vozilo) o;
+        return Objects.equals(id, vozilo.id) && Objects.equals(model, vozilo.model) && Objects.equals(registracija, vozilo.registracija) && Objects.equals(korisnik, vozilo.korisnik) && Objects.equals(rezervacije, vozilo.rezervacije);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, model, registracija, korisnik, rezervacije);
     }
 }
