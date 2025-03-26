@@ -9,12 +9,13 @@ import jakarta.ws.rs.core.Response;
 import org.acme.model.Korisnik;
 import org.acme.repository.KorisnikSource;
 
+@Path("/korisnik/")
 public class KorisnikResource {
 
     @Inject
     KorisnikSource KorisnikSource;
 
-    @Path("dodajKorisnika")
+    @Path("/dodajKorisnika/")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response dodajKorisnika(Korisnik k) {
