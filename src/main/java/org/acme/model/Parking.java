@@ -15,7 +15,7 @@ public class Parking {
     private String naziv;
     private String lokacija;
 
-    @OneToMany(mappedBy = "parking")
+    @OneToMany(mappedBy = "parking", cascade = CascadeType.ALL)
     private List<ParkingMjesto> parkingMjesta = new ArrayList<>();
 
     public Parking() {

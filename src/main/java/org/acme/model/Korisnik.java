@@ -1,13 +1,21 @@
 package org.acme.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = Korisnik.GET_ALL_KORISNICI, query = "SELECT k FROM Korisnik k"),
+        @NamedQuery(name = Korisnik.GET_KORISNICI_BY_NAME, query = "SELECT k FROM Korisnik k WHERE k.ime = :name")
+})
 public class Korisnik {
+
+    public static final String GET_ALL_KORISNICI = "Korisnik.getAllKorisnici";
+    public static final String GET_KORISNICI_BY_NAME = "Korisnik.getKorisniciByName";
+
     @Id
     @SequenceGenerator(name = "korisnik_seq", sequenceName = "korisnik_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "korisnik_seq")
@@ -16,21 +24,21 @@ public class Korisnik {
     private String prezime;
     private String email;
 
-    @OneToMany(mappedBy = "korisnik")
+    @JsonIgnore
+    @OneToMany(mappedBy = "korisnik", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Vozilo> vozila = new ArrayList<>();
-    @ManyToMany
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Kazna> kazne = new ArrayList<>();
 
     public Korisnik() {
     }
 
-    public Korisnik(Long id, String ime, String prezime, String email, List<Vozilo> vozila, List<Kazna> kazne) {
+    public Korisnik(Long id, String ime, String prezime, String email) {
         this.id = id;
         this.ime = ime;
         this.prezime = prezime;
         this.email = email;
-        this.vozila = vozila;
-        this.kazne = kazne;
     }
 
     public Long getId() { return id; }

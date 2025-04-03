@@ -1,10 +1,9 @@
 package org.acme.model;
 
 import jakarta.persistence.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class ParkingMjesto {
@@ -18,14 +17,13 @@ public class ParkingMjesto {
     @ManyToOne
     @JoinColumn(name = "parking_id")
     private Parking parking;
-    @OneToMany(mappedBy = "parkingMjesto")
-    private List<Rezervacija> rezervacije = new ArrayList<>();
-
+    @OneToMany(mappedBy = "parkingMjesto", cascade = CascadeType.ALL)
+    private Set<Rezervacija> rezervacije = new HashSet<>();
 
     public ParkingMjesto() {
     }
 
-    public ParkingMjesto(Long id, String oznaka, boolean zauzeto, Parking parking, List<Rezervacija> rezervacije) {
+    public ParkingMjesto(Long id, String oznaka, boolean zauzeto, Parking parking, Set<Rezervacija> rezervacije) {
         this.id = id;
         this.oznaka = oznaka;
         this.zauzeto = zauzeto;
@@ -45,8 +43,8 @@ public class ParkingMjesto {
     public Parking getParking() { return parking; }
     public void setParking(Parking parking) { this.parking = parking; }
 
-    public List<Rezervacija> getRezervacije() { return rezervacije; } 
-    public void setRezervacije(List<Rezervacija> rezervacije) { this.rezervacije = rezervacije; }
+    public Set<Rezervacija> getRezervacije() { return rezervacije; }
+    public void setRezervacije(Set<Rezervacija> rezervacije) { this.rezervacije = rezervacije; }
 
     @Override
     public String toString() {

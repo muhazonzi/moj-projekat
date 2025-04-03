@@ -1,13 +1,20 @@
 package org.acme.model;
 
 import jakarta.persistence.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = Vozilo.GET_ALL_VOZILA, query = "SELECT v FROM Vozilo v"),
+        @NamedQuery(name = Vozilo.GET_VOZILA_FOR_KORISNIK, query = "SELECT v FROM Vozilo v WHERE v.korisnik.id = :id")
+})
 public class Vozilo {
+
+    public static final String GET_ALL_VOZILA = "Vozilo.getAllVozila";
+    public static final String GET_VOZILA_FOR_KORISNIK = "Vozilo.getVozilaForKorisnik";
+
     @Id
     @SequenceGenerator(name = "vozilo_seq", sequenceName = "vozilo_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vozilo_seq")
@@ -18,14 +25,13 @@ public class Vozilo {
     @ManyToOne
     @JoinColumn(name = "korisnik_id")
     private Korisnik korisnik;
-    @OneToMany(mappedBy = "vozilo")
-    private List<Rezervacija> rezervacije = new ArrayList<>();
-
+    @OneToMany(mappedBy = "vozilo", cascade = CascadeType.ALL)
+    private Set<Rezervacija> rezervacije = new HashSet<>();
 
     public Vozilo() {
     }
 
-    public Vozilo(Long id, String model, String registracija, Korisnik korisnik, List<Rezervacija> rezervacije) {
+    public Vozilo(Long id, String model, String registracija, Korisnik korisnik, Set<Rezervacija> rezervacije) {
         this.id = id;
         this.model = model;
         this.registracija = registracija;
@@ -45,8 +51,8 @@ public class Vozilo {
     public Korisnik getKorisnik() { return korisnik; }
     public void setKorisnik(Korisnik korisnik) { this.korisnik = korisnik; }
 
-    public List<Rezervacija> getRezervacije() { return rezervacije; }
-    public void setRezervacije(List<Rezervacija> rezervacije) { this.rezervacije = rezervacije; }
+    public Set<Rezervacija> getRezervacije() { return rezervacije; }
+    public void setRezervacije(Set<Rezervacija> rezervacije) { this.rezervacije = rezervacije; }
 
     @Override
     public String toString() {
