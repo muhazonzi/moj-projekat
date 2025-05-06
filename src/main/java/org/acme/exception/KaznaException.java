@@ -6,5 +6,5 @@ public class KaznaException extends Exception {
 
     public KaznaException(String message) {
         super(message);
-    }
+    } // constructor
 }
