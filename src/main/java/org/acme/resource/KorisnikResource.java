@@ -1,15 +1,17 @@
 package org.acme.resource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceException;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import org.acme.model.client.CountryResponse;
+import org.acme.model.client.WeatherResponse;
 import org.acme.model.dto.CountryResDto;
 import org.acme.restclient.CountryClient;
+import org.acme.restclient.WeatherClient;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import jakarta.inject.Inject;
@@ -28,6 +30,9 @@ public class KorisnikResource {
 
     @Inject
     private KorisnikRepository korisnikRepository;
+
+    @RestClient
+    WeatherClient weatherClient;
 
     @RestClient
     CountryClient countryClient;
@@ -80,22 +85,38 @@ public class KorisnikResource {
         List<CountryResDto> dtos = countryClient.getNextPublicHolidays(countryCode);
 
         List<CountryResponse> holidays = korisnikRepository.fromDtoList(dtos);
+        List<CountryResponse> resultHolidays = new ArrayList<>();
 
         for (CountryResponse holiday : holidays) {
             String name = holiday.getName();
             String date = holiday.getDate();
 
-            String query = "SELECT COUNT(c) FROM CountryResponse c WHERE c.name = :name AND c.date = :date";
+            String query = "SELECT c FROM CountryResponse c WHERE c.name = :name AND c.date = :date";
 
-            Long count = em.createQuery(query, Long.class)
+            List<CountryResponse> existingHolidays = em.createQuery(query, CountryResponse.class)
                     .setParameter("name", name)
                     .setParameter("date", date)
-                    .getSingleResult();
+                    .getResultList();
 
-            if (count == 0) {
+            if (existingHolidays.isEmpty()) {
                 em.persist(holiday);
+                resultHolidays.add(holiday);
+            } else {
+                resultHolidays.add(existingHolidays.get(0));
             }
         }
-        return Response.ok().entity(holidays).build();
+        return Response.ok().entity(resultHolidays).build();
     }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getForecast")
+    @Transactional
+    public Response getForecast(@QueryParam(value = "city") String city) {
+        WeatherResponse weather = weatherClient.getForecast(city);
+        korisnikRepository.noDuplicates(weather);
+        return Response.ok().entity(weather).build();
+    }
+
+
 }

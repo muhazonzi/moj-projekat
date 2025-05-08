@@ -8,15 +8,14 @@ import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.ws.rs.core.Response;
 import org.acme.model.Korisnik;
 import org.acme.model.Vozilo;
 import org.acme.exception.KorisnikException;
 import org.acme.model.client.CountryResponse;
 import org.acme.model.client.HolidayType;
+import org.acme.model.client.WeatherResponse;
 import org.acme.model.dto.CountryResDto;
-import org.acme.restclient.CountryClient;
-import org.eclipse.microprofile.rest.client.inject.RestClient;
+
 
 @Dependent
 public class KorisnikRepository {
@@ -85,4 +84,18 @@ public class KorisnikRepository {
         }
         return holidays;
     }
+
+    public void noDuplicates(WeatherResponse weather) {
+        Long count = em.createQuery(
+                        "SELECT COUNT(w) FROM WeatherResponse w WHERE w.description = :description AND w.temperature = :temperature AND w.wind = :wind", Long.class)
+                .setParameter("description", weather.getDescription())
+                .setParameter("temperature", weather.getTemperature())
+                .setParameter("wind", weather.getWind())
+                .getSingleResult();
+
+        if (count == 0) {
+            em.persist(weather);
+        }
+    }
+
 }
